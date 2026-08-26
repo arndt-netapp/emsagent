@@ -197,6 +197,14 @@ form.inline {
   align-items: center;
 }
 
+/* A <label> is a column flex (its text sits above its control), so it is a
+   line taller than a bare button beside it and centering leaves the button
+   floating above the controls' bottom edge — the Findings filter row. Bottom-
+   align those rows instead, as .scope-row does for the same reason. Kept
+   conditional because the Files upload form is deliberately label-less (see
+   index.html) and its bare inputs still want centering. */
+form.inline:has(label) { align-items: flex-end; }
+
 label {
   font-size: 0.75rem;
   font-weight: 600;
