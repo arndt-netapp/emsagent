@@ -1,0 +1,59 @@
+{
+  "page_1": {
+    "records": [
+      {
+        "node": {
+          "name": "malha-vsim1",
+          "uuid": "da4f9e62-9de3-11ec-976a-005056b369de",
+          "_links": {"self": {"href": "/api/cluster/nodes/da4f9e62-9de3-11ec-976a-005056b369de"}}
+        },
+        "index": 4602,
+        "time": "2022-03-18T06:37:46-04:00",
+        "message": {"severity": "alert", "name": "raid.autoPart.disabled"},
+        "log_message": "raid.autoPart.disabled: Disk auto-partitioning is disabled on this system: the system needs a minimum of 4 usable internal hard disks.",
+        "_links": {"self": {"href": "/api/support/ems/events/malha-vsim1/4602"}}
+      },
+      {
+        "node": {
+          "name": "malha-vsim1",
+          "uuid": "da4f9e62-9de3-11ec-976a-005056b369de",
+          "_links": {"self": {"href": "/api/cluster/nodes/da4f9e62-9de3-11ec-976a-005056b369de"}}
+        },
+        "index": 4603,
+        "time": "2022-03-18T06:40:10-04:00",
+        "message": {"severity": "notice", "name": "wafl.vol.autoSize.done"},
+        "log_message": "wafl.vol.autoSize.done: Automatic increasing the size of volume vol1 by 51200 KB is completed.",
+        "_links": {"self": {"href": "/api/support/ems/events/malha-vsim1/4603"}}
+      }
+    ],
+    "num_records": 2,
+    "_links": {
+      "self": {"href": "/api/support/ems/events?max_records=2&order_by=time%20desc"},
+      "next": {
+        "href": "/api/support/ems/events?start.keytime=2022-03-18T06%3A40%3A10-04%3A00&start.node.name=malha-vsim1&start.index=4603&max_records=2"
+      }
+    }
+  },
+  "page_2": {
+    "records": [
+      {
+        "node": {
+          "name": "malha-vsim1",
+          "uuid": "da4f9e62-9de3-11ec-976a-005056b369de",
+          "_links": {"self": {"href": "/api/cluster/nodes/da4f9e62-9de3-11ec-976a-005056b369de"}}
+        },
+        "index": 4604,
+        "time": "2022-03-18T06:45:00-04:00",
+        "message": {"severity": "error", "name": "disk.failmsg"},
+        "log_message": "disk.failmsg: Disk 0a.00.1 needs to be replaced due to predicted failure.",
+        "_links": {"self": {"href": "/api/support/ems/events/malha-vsim1/4604"}}
+      }
+    ],
+    "num_records": 1,
+    "_links": {
+      "self": {
+        "href": "/api/support/ems/events?start.keytime=2022-03-18T06%3A40%3A10-04%3A00&start.node.name=malha-vsim1&start.index=4603&max_records=2"
+      }
+    }
+  }
+}

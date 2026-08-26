@@ -1,0 +1,17 @@
+2026-08-10T00:00:12-04:00 [node1: callhome.reboot:notice]: callhome.reboot: System rebooted.
+2026-08-10T00:01:03-04:00 [node2: wafl.vol.autoSize.done:notice]: wafl.vol.autoSize.done: Automatic increasing the size of volume vol1 by 51200 KB is completed.
+2026-08-10T00:02:41-04:00 [node3: cf.fm.partnerDataFine:notice]: cf.fm.partnerDataFine: Cluster failover partner data is fine.
+### corrupted log line: buffer truncated mid-write ###
+2026-08-10T00:05:19-04:00 [node1: mgmtd.config.changed:notice]: mgmtd.config.changed: Configuration change detected.
+2026-08-10T00:08:55-04:00 [node2: sk.zombie.lun:info]: sk.zombie.lun: LUN state check completed with no issues.
+2026-08-10T00:12:30-04:00 [node3: snapmirror.dp.transfer.success:notice]: snapmirror.dp.transfer.success: SnapMirror transfer completed successfully.
+2026-08-10T01:00:02-04:00 [node1: disk.smart.error:warning]: disk.smart.error: Disk 0a.00.3 reported a SMART health warning.
+2026-08-10T01:04:47-04:00 [node1: disk.smart.error:warning]: disk.smart.error: Disk 0a.00.3 reported a SMART health warning.
+2026-08-10T01:09:15-04:00 [node1: raid.rg.recons.perf.degraded:error]: raid.rg.recons.perf.degraded: RAID reconstruction on disk 0a.00.3 is degraded.
+2026-08-10T01:15:33-04:00 [node1: disk.predictiveFailure:alert]: disk.predictiveFailure: Disk 0a.00.3 has been predictively failed and will be replaced.
+2026-08-10T01:16:02-04:00 [node1: raid.disk.spare.needed:alert]: raid.disk.spare.needed: A spare disk is needed to replace disk 0a.00.3 on node1.
+!!! watchdog: log forwarder connection reset, 2 events dropped !!!
+2026-08-10T02:00:11-04:00 [node2: qos.monitor.latency:warning]: qos.monitor.latency: Workload vol2_wid latency exceeded threshold of 20ms.
+2026-08-10T02:05:44-04:00 [node2: qos.monitor.latency:warning]: qos.monitor.latency: Workload vol2_wid latency exceeded threshold of 20ms.
+2026-08-10T02:11:09-04:00 [node2: wafl.vvol.offline:error]: wafl.vvol.offline: Volume vol2 taken offline due to sustained high latency.
+2026-08-10T02:12:00-04:00 [node2: monitor.disk.util.high:alert]: monitor.disk.util.high: Aggregate aggr1 disk utilization sustained above 95 percent.

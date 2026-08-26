@@ -1,0 +1,420 @@
+/* Light, single-theme palette in NetApp's visual language (console.netapp.com).
+   There is deliberately NO dark mode: one palette, no dual-mode token
+   maintenance, so a dark-tuned color appearing anywhere below is a bug rather
+   than a variant.
+
+   The semantic colors are contrast-PAIRED (dark text on a light tint). This
+   sheet used to be a dark theme whose badges were a bright color on a 15%
+   tint of itself; those values fail outright on white (#3fb950 on #fff is
+   ~2.2:1), which is why --ok/--warn/--err changed value and not merely the
+   surfaces around them. Don't brighten them back toward the old values
+   without re-checking contrast.
+
+   Exact NetApp design-system (LUCI) token values were NOT available:
+   luci.netapp.com doesn't resolve publicly and console.netapp.com serves only
+   a SPA shell unauthenticated. So this is NetApp's brand language applied by
+   hand, not a verified match — correcting it against a real token dump means
+   editing the :root block below and nothing else. */
+:root {
+  /* Brand. --accent is kept as the name the rest of this sheet already uses. */
+  --brand: #0067C5;          /* NetApp blue */
+  --accent: var(--brand);
+  --brand-hover: #00539B;
+  --brand-subtle: #E7F1FB;   /* tinted fills, active nav, hovered rows */
+
+  /* Canvas and surfaces */
+  --bg: #F5F7FA;             /* page canvas */
+  --panel: #FFFFFF;          /* cards, panels */
+  --panel-alt: #FAFBFC;      /* table header band, zebra/hover rows */
+
+  /* Lines and text */
+  --border: #D5DDE5;         /* hairline */
+  --border-strong: #B8C4D0;  /* input borders */
+  --text: #1E252B;
+  --muted: #5B6B7B;          /* ~4.9:1 on white, safe for body text */
+
+  /* Semantic — paired text/tint. See the note above before changing these. */
+  --ok:   #197A3D;  --ok-bg:   #E6F4EA;
+  --warn: #8A5300;  --warn-bg: #FDF3E0;
+  --err:  #B3261E;  --err-bg:  #FCEAE9;
+  --info: #5B6B7B;  --info-bg: #EEF1F5;
+
+  --shadow-sm: 0 1px 2px rgba(30, 37, 43, 0.06);
+  --shadow-md: 0 1px 3px rgba(30, 37, 43, 0.08), 0 1px 2px rgba(30, 37, 43, 0.04);
+  --radius: 6px;
+
+  /* NetApp's brand typeface is proprietary and can't be committed here, and a
+     locally-run tool shouldn't fetch a font from a CDN on every page load.
+     The system stack carries the look instead, tuned by size and weight. */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0 0 3rem;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One visible focus treatment for everything interactive. The sheet previously
+   had no focus styling at all, which is conspicuous on a light theme. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+nav {
+  display: flex;
+  gap: 1.75rem;
+  padding: 0 2rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  align-items: stretch;
+}
+
+/* Brand lockup. A neutral blue glyph plus the product name — deliberately NOT
+   the NetApp logo, which is a trademark this tool has no standing to reproduce.
+   Naming ONTAP/NetApp descriptively, as the rest of the repo does, is a
+   different thing from wearing the mark. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.5rem 0.85rem 0;
+  margin-right: 0.25rem;
+  border-right: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand-sub { color: var(--muted); font-weight: 500; }
+
+nav a:not(.brand) {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.85rem 0;
+  /* Reserved on every tab so the active tab's rule doesn't shift the row. */
+  border-bottom: 2px solid transparent;
+}
+
+nav a:not(.brand):hover { color: var(--text); }
+
+nav a.active {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+}
+
+main {
+  /* 1280 rather than the old 960: the run-history table is nine columns, one
+     of them holding an unbreakable fetched filename, and it overflowed its
+     panel at the narrower width. This addresses the cause; the .panel scroll
+     and .scope-label's overflow-wrap below both stay as fallbacks, since a
+     long enough filename still beats any fixed width. */
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.75rem 2rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+}
+
+h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin: 2.25rem 0 0.75rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  /* A table's min-content width wins over `width: 100%`, so a wide run-history
+     row (9 columns, one holding a long filename) pushed the table past the
+     panel and left the last cell's button floating outside the box.
+     Scroll the overflow inside the panel instead of spilling it. */
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+
+thead th {
+  background: var(--panel-alt);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:hover { background: var(--panel-alt); }
+tbody tr:last-child td { border-bottom: none; }
+
+form.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-start;
+}
+
+label:has(input[type="checkbox"]) {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  border-radius: 5px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.75; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--brand);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--brand-subtle);
+}
+
+input[type="file"] { border: 1px dashed var(--border-strong); background: var(--panel-alt); }
+
+/* An input whose placeholder is doing the job of a label needs room for the
+   whole phrase; the default width clips it to an ambiguous fragment. */
+.field-wide { min-width: 15rem; }
+
+textarea { width: 100%; min-height: 3.5rem; }
+
+button {
+  background: var(--brand);
+  color: #fff;
+  border: 1px solid var(--brand);
+  border-radius: 5px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  /* Buttons live in table cells ("View candidates" in the 9-column run
+     history), where wrapping a two-word label onto two lines stretches the
+     whole row. The table already scrolls inside its panel if it must. */
+  white-space: nowrap;
+}
+
+button:hover:not(:disabled) { background: var(--brand-hover); border-color: var(--brand-hover); }
+
+button.secondary {
+  background: var(--panel);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+button.secondary:hover:not(:disabled) { background: var(--panel-alt); border-color: var(--muted); }
+
+/* Outlined rather than solid red. Its only use is the routine "Not important"
+   dismissal on the Findings page, and a solid red block overstates what is a
+   normal, reversible triage action. */
+button.danger {
+  background: var(--panel);
+  border-color: var(--err);
+  color: var(--err);
+}
+
+button.danger:hover:not(:disabled) { background: var(--err-bg); }
+
+button:disabled { opacity: 0.45; cursor: default; }
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.badge.processed, .badge.completed, .badge.open, .badge.investigated { background: var(--ok-bg); color: var(--ok); }
+.badge.pending, .badge.running, .badge.investigating { background: var(--warn-bg); color: var(--warn); }
+.badge.failed, .badge.dismissed, .badge.discarded, .badge.auto_suppressed { background: var(--err-bg); color: var(--err); }
+/* A completed investigation that ruled its candidate out: a record of work
+   done, not a risk, so it reads as neutral rather than good or bad news. */
+.badge.no_issue { background: var(--info-bg); color: var(--info); }
+/* A hypothesis the budget cut short: a real lead, but unconfirmed — warned
+   rather than asserted, so it never reads as an established finding. */
+.badge.partial { background: var(--warn-bg); color: var(--warn); }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.1rem;
+  margin-bottom: 0.85rem;
+}
+
+.card .meta { color: var(--muted); font-size: 0.75rem; margin-bottom: 0.5rem; }
+/* pre-line, not the default collapse: a partial finding's description ends
+   with a blank line and the "Unconfirmed: ..." caveat explaining how far the
+   investigation got, which must not run into the agent's own last sentence. */
+.card .desc { margin: 0.5rem 0; white-space: pre-line; }
+.card details { margin-top: 0.6rem; }
+.card details summary { cursor: pointer; color: var(--brand); font-size: 0.8rem; font-weight: 600; }
+
+.status-line { color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem; }
+.error-text { color: var(--err); font-size: 0.8rem; }
+
+/* Filenames and script paths in the upload help text. Default <code> at the
+   surrounding size reads heavier than the prose it is explaining. */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.3em;
+}
+
+/* Stage 2 investigation trace. Monospace for tool names/args so a reader can
+   scan the sequence of calls; results are deliberately clipped to 3 lines
+   because the full text is already stored truncated and the value here is the
+   shape of the investigation, not the evidence itself. */
+.trace-turns, .trace-steps { list-style: none; margin: 0; padding: 0; }
+.trace-turns { margin-top: 0.6rem; }
+
+.trace-turn { margin-bottom: 0.6rem; }
+
+.trace-turn-label {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+
+.trace-steps { border-left: 2px solid var(--border); padding-left: 0.8rem; }
+
+.trace-step { margin-bottom: 0.5rem; }
+
+.trace-head {
+  display: flex;
+  gap: 0.4rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+}
+
+.trace-tool { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--brand); font-weight: 600; }
+.trace-args { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); word-break: break-all; }
+.trace-time { color: var(--muted); font-size: 0.7rem; margin-left: auto; }
+
+.trace-result {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Which scope a historical run covered, under its event summary. Fetched
+   filenames are long unbroken tokens (ems_fetch_<cluster>_<timestamp>.log), and
+   an unbreakable token sets the column's min-content width — which is what
+   pushed the table wider than its panel. Breaking it keeps the table within
+   the panel in the first place, so the scroll above stays a fallback. */
+.scope-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-top: 0.2rem;
+  overflow-wrap: anywhere;
+}
+
+/* Run-scope selector row. Its own class rather than reusing form.inline,
+   which is scoped to <form> and whose align-items:center the cluster-fetch
+   form on the Files page depends on. flex-end so the select's bottom edge
+   lines up with the button next to it, rather than the label text pushing
+   the button to the top of the row. */
+.scope-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* "+N dup" next to a file's event count: events an earlier fetch of the same
+   cluster had already stored, so this ingestion skipped them. */
+.dup-note { color: var(--muted); font-size: 0.7rem; margin-left: 0.35rem; }
+
+/* A finding arrived at via a deep link from the Analysis page. */
+.card.highlight {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 1px var(--brand), var(--shadow-md);
+}
+
+.card a { color: var(--brand); }
+
+/* "Investigated: from run #2 · 5 turns · ~$0.0174" above a finding's trace. */
+.investigation { margin-top: 0.6rem; }
+
+/* Files table: a file with no cluster identity, and its Analyze shortcut. */
+.muted-cell { color: var(--muted); }
+.analyze-link { color: var(--brand); font-size: 0.8rem; font-weight: 600; }

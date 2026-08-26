@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EMS Log Agent - Findings</title>
+  <link rel="stylesheet" href="/css/style.css?v=2" />
+</head>
+<body>
+  <nav>
+    <a href="/" class="brand">EMS Log Agent <span class="brand-sub">ONTAP</span></a>
+    <a href="/">Files</a>
+    <a href="/analysis.html">Analysis</a>
+    <a href="/findings.html" class="active">Findings</a>
+  </nav>
+  <main>
+    <h1>Findings</h1>
+
+    <div class="panel">
+      <form class="inline" id="filter-form">
+        <label>Status
+          <select name="status">
+            <option value="">any</option>
+            <option value="open" selected>open (issues)</option>
+            <option value="partial">unconfirmed (budget ran out)</option>
+            <option value="dismissed">dismissed</option>
+            <option value="no_issue">no issue found</option>
+          </select>
+        </label>
+        <label>Category
+          <select name="category">
+            <option value="">any</option>
+            <option value="availability_risk">availability_risk</option>
+            <option value="performance_issue">performance_issue</option>
+            <option value="predictive_failure">predictive_failure</option>
+          </select>
+        </label>
+        <label>Severity
+          <select name="severity">
+            <option value="">any</option>
+            <option value="critical">critical</option>
+            <option value="high">high</option>
+            <option value="medium">medium</option>
+            <option value="low">low</option>
+            <option value="info">info (no issue)</option>
+          </select>
+        </label>
+        <button type="submit">Apply filters</button>
+      </form>
+    </div>
+
+    <div id="findings-list"></div>
+  </main>
+  <!-- ?v= busts caches populated before Cache-Control: no-cache was set; see NoCacheStaticFiles. -->
+  <script src="/js/api.js?v=2"></script>
+  <script src="/js/trace.js?v=2"></script>
+  <script src="/js/findings.js?v=2"></script>
+</body>
+</html>

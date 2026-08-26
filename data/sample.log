@@ -1,0 +1,10 @@
+2026-08-17T18:00:26+00:00 [cluster1-01: configbr.noDestURL:error]: configbr.noDestURL: Cluster backup is saved on only one node and no offsite configuration backup destination URL is configured.
+2026-08-17T17:58:58+00:00 [cluster1-02: mgmtgwd.certificate.expired:error]: mgmtgwd.certificate.expired: A digital certificate with Fully Qualified Domain Name (FQDN) svm1, Serial Number 180B4458432B2872, Certificate Authority 'svm1' and type server for Vserver svm1 has expired.
+2026-08-17T17:58:45+00:00 [cluster1-02: configbr.backupFailed:alert]: configbr.backupFailed: The node configuration backup cluster1-02.daily.2026-08-17.17_58_43.7z cannot be created. Error: 'Failed to access file ".tmp.bk.cluster1-02.daily.16.1786989523" on the root volume'.
+2024-11-25T19:22:03+00:00 [cluster1-01: monitor.globalStatus.critical:emergency]: monitor.globalStatus.critical: Controller failover of cluster1-02 is not possible: local halt in progress.
+2024-11-25T19:22:03+00:00 [cluster1-02: monitor.globalStatus.critical:emergency]: monitor.globalStatus.critical: Controller failover of cluster1-01 is not possible: local halt in progress.
+2024-11-25T19:22:02+00:00 [cluster1-01: cf.fsm.takeoverOfPartnerDisabled:error]: cf.fsm.takeoverOfPartnerDisabled: Failover monitor: takeover of cluster1-02 disabled (local halt in progress).
+2024-11-25T19:22:01+00:00 [cluster1-01: perf.ccma.off:alert]: perf.ccma.off: Performance archiver is not enabled for datastore ''.
+2024-11-25T19:22:00+00:00 [cluster1-02: cf.fsm.takeoverOfPartnerDisabled:error]: cf.fsm.takeoverOfPartnerDisabled: Failover monitor: takeover of cluster1-01 disabled (local halt in progress).
+2024-11-25T19:22:00+00:00 [cluster1-02: perf.ccma.off:alert]: perf.ccma.off: Performance archiver is not enabled for datastore ''.
+

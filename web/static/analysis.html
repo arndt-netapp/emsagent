@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EMS Log Agent - Analysis</title>
+  <link rel="stylesheet" href="/css/style.css?v=2" />
+</head>
+<body>
+  <nav>
+    <a href="/" class="brand">EMS Log Agent <span class="brand-sub">ONTAP</span></a>
+    <a href="/">Files</a>
+    <a href="/analysis.html" class="active">Analysis</a>
+    <a href="/findings.html">Findings</a>
+  </nav>
+  <main>
+    <h1>Analysis</h1>
+
+    <div class="panel">
+      <div class="status-line" id="ingested-scope">Loading ingested events...</div>
+      <div class="scope-row">
+        <label>Analyze
+          <select id="scope-select"></select>
+        </label>
+        <button id="trigger-btn">Run analysis</button>
+      </div>
+      <div class="status-line" id="scope-hint"></div>
+      <div class="status-line" id="current-status"></div>
+    </div>
+
+    <h2>Run history</h2>
+    <div class="panel">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Status</th><th>Started</th><th>Scope</th><th>Candidates</th><th>Auto-suppressed</th><th>Tokens (in/out)</th><th>Est. Cost</th><th></th></tr>
+        </thead>
+        <tbody id="runs-body"></tbody>
+      </table>
+    </div>
+
+    <div id="candidates-panel"></div>
+  </main>
+  <!-- ?v= busts caches populated before Cache-Control: no-cache was set; see NoCacheStaticFiles. -->
+  <script src="/js/api.js?v=2"></script>
+  <script src="/js/analysis.js?v=2"></script>
+  <script src="/js/candidates.js?v=2"></script>
+</body>
+</html>

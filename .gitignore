@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+data/emsagent.db
+*.db
+*.db-journal
+data/logs_incoming/*
+!data/logs_incoming/.gitkeep
+# The raw 5MB catalog pull straight from a cluster. The committed artifact is
+# data/ems_catalog.json.gz — same records, _links stripped, ~560KB.
+data/ems_catalog.json
+.pytest_cache/
+*.egg-info/
+.DS_Store
+.idea/
+.vscode/

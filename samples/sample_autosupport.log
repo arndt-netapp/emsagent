@@ -1,0 +1,9 @@
+Tue Aug 25 00:08:22 -0700 [cluster2-n03: dense_ads_monitor: sis.auto.session.change:notice]: ADS: Number of auto sessions changed from 3 to 4
+Tue Aug 25 00:08:31 -0700 [cluster2-n03: ypbind: nis.server.not.available:error]: None of the NIS servers configured for SVM 'cluster4-c04-nas' can be contacted.
+Tue Aug 25 00:10:00 -0700 [cluster2-n03: wafl_exempt14: wafl.vol.snap_create.done:info]: params: {'type': 'Volume', 'owner': '', 'vol': 'arndt1', 'app': '', 'volident': '@vserver:42e36aa3-0cf9-11f1-b7b8-d039ea08c450', 'run_time': '101'}
+Tue Aug 25 00:10:07 -0700 [cluster2-n03: rastrace_dump: rastrace.dump.saved:debug]: A RAS trace dump for module SNAPCOORD instance 0 was stored in /etc/log/rastrace/SNAPCOORD_0_20260825_00:10:07:342278.dmp.
+Tue Aug 25 00:11:12 -0700 [cluster2-n03: ypbind: nis.server.not.available:error]: None of the NIS servers configured for SVM 'cluster4-c04-nas' can be contacted.
+Tue Aug 25 00:12:08 -0700 [cluster2-n03: secd: secd.dns.srv.lookup.failed:error]: DNS server failed to look up service (_ldap._tcp.dc._msdcs.cii_encrypt/NnXOokctHleX/FBCqRoZRBFds58Qct811biIsCd4dRs=/cii_encrypt) for vserver (cluster4-c04-krb) with error (Connection refused).
+Tue Aug 25 00:12:22 -0700 [cluster2-n03: dense_ads_monitor: sis.auto.session.change:notice]: ADS: Number of auto sessions changed from 1 to 2
+Tue Aug 25 00:15:00 -0700 [cluster2-n03: rpl_worker_main: sm.xfer.no.new.snap:info]: SnapMirror update did not find any new snapshots to transfer from the source volume 'cluster4-c01-PROD:vol1' of the relationship with relationship UUID '1b3e2185-8613-11f1-81d0-d039ea08c450'.
+Tue Aug 25 04:03:44 -0700 [cluster2-n03: mlogd: callhome.management.log.rotate:notice]: Call home MANAGEMENT_LOG ROTATE for filename: php-fpm.access.

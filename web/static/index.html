@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EMS Log Agent - Files</title>
+  <link rel="stylesheet" href="/css/style.css?v=2" />
+</head>
+<body>
+  <nav>
+    <a href="/" class="brand">EMS Log Agent <span class="brand-sub">ONTAP</span></a>
+    <a href="/" class="active">Files</a>
+    <a href="/analysis.html">Analysis</a>
+    <a href="/findings.html">Findings</a>
+  </nav>
+  <main>
+    <h1>Log files</h1>
+
+    <div class="panel">
+      <form class="inline" id="upload-form">
+        <input type="file" id="upload-input" required />
+        <!-- No visible <label> here on purpose: label is a column flex (text
+             above input), so it is taller than the file input and button beside
+             it and knocks the whole row out of alignment. The placeholder
+             carries the wording; aria-label keeps it named for screen readers. -->
+        <input type="text" id="upload-cluster" class="field-wide" aria-label="Cluster name (optional)" placeholder="Optional cluster name" />
+        <!-- Same option list and same default as the cluster fetch form below;
+             see the comment there. "all" rather than an empty value because
+             api.js's apiUpload omits empty form fields, and an omitted field
+             takes the server's default — so an empty value here would make
+             "All severities" filter. -->
+        <select id="upload-min-severity" aria-label="Minimum severity to ingest">
+          <option value="all">All severities</option>
+          <option value="notice" selected>Notice and higher</option>
+          <option value="error">Error and higher</option>
+          <option value="alert">Alert and higher</option>
+          <option value="emergency">Emergency only</option>
+        </select>
+        <button type="submit">Upload</button>
+      </form>
+      <div class="status-line">
+        Accepts a bundle from <code>scripts/fetch_ems_events.py</code> (keep the filename —
+        it carries the cluster) or an <code>EMS-LOG-FILE.txt</code> from an autosupport
+        bundle, which carries no cluster of its own: name it above, or its events join the
+        unspecified pool and can't be told apart from another cluster's.
+      </div>
+      <div class="status-line" id="upload-status"></div>
+    </div>
+
+    <h2>Fetch recent logs from a cluster</h2>
+    <div class="panel">
+      <!-- method="post" so that if the script ever fails to attach its submit
+           handler, the browser's fallback submission puts these credentials in
+           a request body rather than serializing them into the URL, the
+           browser history and the server access log. -->
+      <form id="cluster-form" method="post">
+        <div class="inline" style="margin-bottom:0.6rem">
+          <label>Cluster<input type="text" name="cluster" placeholder="10.0.0.5 or cluster.example.com" required /></label>
+          <label>Username<input type="text" name="username" required /></label>
+          <label>Password<input type="password" name="password" required /></label>
+          <label>Count<input type="number" name="count" value="500" min="1" /></label>
+        </div>
+        <div class="inline" style="margin-bottom:0.6rem">
+          <!-- A minimum, not a set: severity is an ordered scale, so a
+               multi-select would let someone assemble a corpus of emergency +
+               debug with the middle missing, which no analysis can reason
+               about. The route expands the floor into ONTAP's OR-list.
+               `count` caps events RETURNED, so raising the floor buys a wider
+               time window for the same number of events, not just less noise. -->
+          <label>Minimum severity
+            <select name="min_severity">
+              <option value="all">All severities</option>
+              <option value="notice" selected>Notice and higher</option>
+              <option value="error">Error and higher</option>
+              <option value="alert">Alert and higher</option>
+              <option value="emergency">Emergency only</option>
+            </select>
+          </label>
+          <label>Log message filter<input type="text" name="log_message" placeholder="*disk*" /></label>
+          <label><input type="checkbox" name="verify_tls" /> Verify TLS certificate</label>
+        </div>
+        <button type="submit">Fetch events</button>
+      </form>
+      <div class="status-line" id="cluster-status"></div>
+    </div>
+
+    <h2>Files</h2>
+    <div class="panel">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Filename</th><th>Cluster</th><th>Status</th><th>Format</th><th>Severity</th><th>Events</th><th>Discovered</th><th></th></tr>
+        </thead>
+        <tbody id="files-body"></tbody>
+      </table>
+    </div>
+  </main>
+  <!-- ?v= busts caches populated before Cache-Control: no-cache was set; see NoCacheStaticFiles. -->
+  <script src="/js/api.js?v=2"></script>
+  <script src="/js/files.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[project]
+name = "emsagent"
+version = "0.1.0"
+description = "Agentic AI tool for analyzing NetApp ONTAP EMS log files"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "pydantic-settings>=2.4",
+    "langgraph>=0.2",
+    "langchain-anthropic>=0.2",
+    "anthropic>=0.34",
+    "python-dateutil>=2.9",
+    "requests>=2.32",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
