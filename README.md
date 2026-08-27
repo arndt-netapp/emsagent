@@ -158,6 +158,9 @@ other two views). The API is also browsable at http://127.0.0.1:8000/docs.
 
 Three ways in. All of them apply the severity floor described below.
 
+![The Files page: the upload form, the cluster fetch form, and the table of ingested files
+showing cluster, detected format, severity floor and event count](docs/screenshots/emsagent1.png)
+
 1. **Pull from a live cluster** via the "Fetch recent logs from a cluster" form on the Files
    page, or the standalone script:
    ```bash
@@ -235,12 +238,20 @@ though a byte-identical file is refused by hash — fetch again, or upload a cop
    have no cluster identity and group as "unspecified". The 24-hour window is measured from the
    newest event in the data, not the current time, so it works on logs collected weeks ago. The
    **Analyze** button beside any file jumps here with that file pre-selected.
+
+   ![The Analysis page: the scope selector with its cost estimate, the run history row with
+   token counts, and the ranked candidate list below it](docs/screenshots/emsagent2.png)
+
 2. **Review the ranked candidates** and, for each, either **Discard** (no model call, no cost) or
    **Investigate** — a real iterative investigation of that one candidate, capped at $0.50.
 
 The two pages divide cleanly. **Analysis** is about decisions and spend: what Stage 1 flagged,
 what you chose to investigate, what it cost. **Findings** holds every Stage 2 result with its
 supporting events, its cost, and an expandable trace of every tool the agent called.
+
+![The Findings page: one open finding with its evidence summary and recommendation, the
+expandable supporting-events and tool-call trace, and the dismissal
+controls](docs/screenshots/emsagent3.png)
 
 Three things about cost and outcomes are worth knowing before you spend anything:
 
